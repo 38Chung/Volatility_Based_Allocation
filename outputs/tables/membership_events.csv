@@ -1,5 +1,5 @@
 effective,weekday,in,out,estimated,last_signal_old,first_signal_new,first_rebal_new,n_member_after,check_ok
-2010-03-22,Mon,CMA,COSC,False,,2011-01-03,2011-01-04,30,True
+2010-03-22,Mon,CMA,,False,,2011-01-03,2011-01-04,30,True
 2011-03-21,Mon,MGLP,SMTC,False,2011-03-14,2011-03-21,2011-03-22,30,True
 2012-09-24,Mon,IHHH,NOLS,False,2012-09-17,2012-09-24,2012-09-25,30,True
 2013-03-18,Mon,THBE,IHHH,True,2013-03-11,2013-03-18,2013-03-19,30,True
