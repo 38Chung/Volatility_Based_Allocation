@@ -41,14 +41,15 @@ Code comments are in Chinese; this README and all output column names are in Eng
 
 | File | Content |
 |---|---|
-| `All_Stock_STI_used.csv` | Daily Datastream data for the 51 candidate stocks, 2010-01-01 to 2026-10-29, long format (`date`, `ticker` + the 18 fields used: RZ, P, UP, PO, MV, VO, UVO, VA, NOSH, UDD, EPS1FD12, MTBV, WC03501, PE, EPS, PH, PL, DY). Raw values in the quoting currency, exactly as downloaded. |
+| `All_Stock_STI_used.csv` | Daily Datastream data for the 50 candidate stocks, 2010-01-01 to 2026-10-29, long format (`date`, `ticker` + the 18 fields used: RZ, P, UP, PO, MV, VO, UVO, VA, NOSH, UDD, EPS1FD12, MTBV, WC03501, PE, EPS, PH, PL, DY). Raw values in the quoting currency, exactly as downloaded. |
 | `STI_used.csv` | STI daily PI, RI (total-return index, the benchmark), DY, MV. |
 | `STI_membership_used.csv` | STI membership periods (SGX code, name, entry date, last date in the index, notes). Notes marked 估計 / 推定 are estimated dates. |
 | `tickers.csv` | Datastream code → company name. |
 | `mas_fx_daily.csv` | MAS daily noon exchange rates (SGD per unit of USD, CNY, HKD, MYR, PHP, THB). |
 
-The 51 candidates are every company that was an STI constituent at any time since 2010: 40 current or former constituents still listed,
-plus 11 that were delisted or removed (COSC, SMTC, NOLS, CMA, OLAM, NOBE, CAPT, JSTG, DBSL, MGLP, SGPS).
+The 50 candidates are every company that was an STI constituent at any time during the backtest sample: 40 current or former constituents still listed,
+plus 10 that were later delisted or acquired (SMTC, NOLS, CMA, OLAM, NOBE, CAPT, JSTG, DBSL, MGLP, SGPS).
+COSCO Shipping International (Singapore) left the index in March 2010, before the first signal date, so it is not included.
 
 ## 3. How to run
 

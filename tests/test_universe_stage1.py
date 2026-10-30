@@ -20,7 +20,7 @@ def cal(data):
 # ---------------------------------------------------------------- 2.1 讀檔
 def test_panel_universe_and_last_day(data):
     panel, sti = data
-    assert sorted(panel.columns.get_level_values("ticker").unique()) == sorted(C.TICKERS) and len(C.TICKERS) == 51
+    assert sorted(panel.columns.get_level_values("ticker").unique()) == sorted(C.TICKERS) and len(C.TICKERS) == 50
     vo = dl.field(panel, "VO")
     assert panel.index[-1] == vo.index[(vo > 0).any(axis=1)][-1] == pd.Timestamp("2026-10-29")   # 10/30 空列已刪
     assert sti.index.equals(panel.index) and list(sti.columns) == ["PI", "RI", "DY", "MV"]

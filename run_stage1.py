@@ -196,7 +196,7 @@ def main(rebuild=True, only=None):
 
 def universe_reports(panel, days, tradable, sched, fac, summ):
     """股票池相關的報表：成份股檔數與不可交易原因、成份股變動事件、下市股 L_i、
-    11 檔下市股的因子覆蓋率、幣別反推、通過 IC 篩選的因子清單。"""
+    10 檔下市股的因子覆蓋率、幣別反推、通過 IC 篩選的因子清單。"""
     signals = pd.DatetimeIndex(sched["signal"])
     rebal = pd.Series(pd.DatetimeIndex(sched["rebal"]), index=signals)
     p = panel.loc[days]
@@ -273,7 +273,7 @@ def universe_reports(panel, days, tradable, sched, fac, summ):
     delist = pd.DataFrame(dl_rows).set_index("ticker")
     delist.to_csv(_path("table", "delisted_Li.csv"))
 
-    # ---- 11 檔下市股的因子覆蓋率（只看它們在股票池內可交易的訊號日）
+    # ---- 10 檔下市股的因子覆蓋率（只看它們在股票池內可交易的訊號日）
     cov = pd.DataFrame({k: fac[k].reindex(signals).where(tr).notna().sum() / tr.sum() for k in C.FACTORS})
     cov_del = cov.loc[C.DELISTED_SHEET].assign(n_tradable_signals=tr[C.DELISTED_SHEET].sum())
     cov_del.to_csv(_path("table", "factor_coverage_delisted.csv"))
@@ -308,8 +308,8 @@ def universe_reports(panel, days, tradable, sched, fac, summ):
     print("\n成份股變動事件（共 %d 次，檢查通過 %d 次）\n" % (len(events), events["check_ok"].sum()),
           events.to_string(index=False))
     print("\n下市股\n", delist.to_string())
-    print("\n11 檔下市股的因子覆蓋率\n", cov_del.round(2).to_string())
-    print("\n幣別反推（11 檔下市股 + 外幣相關股票）\n",
+    print("\n10 檔下市股的因子覆蓋率\n", cov_del.round(2).to_string())
+    print("\n幣別反推（10 檔下市股 + 外幣相關股票）\n",
           ccy.loc[[t for t in C.TICKERS if t in C.DELISTED_SHEET or t in C.EPS_CCY or t in C.USD_QUOTED]].round(3))
     print("\n通過篩選（NW t > %.0f）：" % C.SCREEN_T_MIN, cmp.index[cmp["pass_screen"]].tolist())
     return dict(count=count, not_trad=not_trad, events=events, delist=delist, cov_del=cov_del, ccy=ccy, cmp=cmp)

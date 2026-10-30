@@ -3,7 +3,7 @@ import os
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC_DATA_DIR = os.path.join(ROOT, "data")       # 輸入資料（見 README）
-DATA_FILE = os.path.join(SRC_DATA_DIR, "All_Stock_STI_used.csv")      # 51 檔股票的日資料（原始幣別），長表
+DATA_FILE = os.path.join(SRC_DATA_DIR, "All_Stock_STI_used.csv")      # 50 檔股票的日資料（原始幣別），長表
 STI_FILE = os.path.join(SRC_DATA_DIR, "STI_used.csv")                  # STI：PI、RI、DY、MV
 MEMBERSHIP_FILE = os.path.join(SRC_DATA_DIR, "STI_membership_used.csv")  # STI 成份期間
 EXTRA_DIR = SRC_DATA_DIR                                                # MAS 每日匯率 mas_fx_daily.csv
@@ -42,16 +42,17 @@ SECTOR = {
     "KEPP": "Industrials", "JSHP": "Industrials", "SEMB": "Industrials", "STEN": "Industrials", "YSHL": "Industrials",
     "CODE": "Industrials", "SATS": "Industrials", "SIAE": "Industrials", "SAIR": "Industrials",
     "JMTS": "Industrials", "CYCL": "Industrials", "HPHH": "Industrials",
-    "COSC": "Industrials", "SMTC": "Industrials", "NOLS": "Industrials", "NOBE": "Industrials", "JSTG": "Industrials",
+    "SMTC": "Industrials", "NOLS": "Industrials", "NOBE": "Industrials", "JSTG": "Industrials",
     "THBE": "Consumer", "EMPE": "Consumer", "FRAS": "Consumer", "GLDA": "Consumer", "EZYH": "Consumer",
     "GINT": "Consumer", "DAIR": "Consumer", "OLAM": "Consumer",
     "TELC": "TMT & Health", "STAH": "TMT & Health", "VEMA": "TMT & Health", "IHHH": "TMT & Health",
     "SGPS": "TMT & Health",
 }
-# 11 檔已下市或已離開的前成份股（產業是依公司業務推定的，見 README）
-DELISTED_SHEET = ["COSC", "SMTC", "NOLS", "CMA", "OLAM", "NOBE", "CAPT", "JSTG", "DBSL", "MGLP", "SGPS"]
+# 10 檔已下市或被收購的前成份股（產業是依公司業務推定的，見 README）。
+# COSC（2010-03 就離開指數，早於第一個訊號日，從未進入股票池）已從資料中移除
+DELISTED_SHEET = ["SMTC", "NOLS", "CMA", "OLAM", "NOBE", "CAPT", "JSTG", "DBSL", "MGLP", "SGPS"]
 # 最後真實交易日 L_i（全樣本最後一個 VO > 0 的日子）；之後的值是 Datastream 補值，讀檔時設成 NaN（2.7）。
-# COSC 仍在交易，不在表中。data_loader 會用資料重算並比對
+# data_loader 會用資料重算並比對
 DELISTED = {"SMTC": "2016-10-18", "NOLS": "2016-07-18", "CMA": "2014-06-09", "OLAM": "2022-03-09",
             "NOBE": "2018-11-16", "CAPT": "2020-10-16", "JSTG": "2021-04-12", "DBSL": "2021-09-09",
             "MGLP": "2018-01-04", "SGPS": "2022-04-07"}
@@ -60,7 +61,7 @@ DELISTED = {"SMTC": "2016-10-18", "NOLS": "2016-07-18", "CMA": "2014-06-09", "OL
 SECONDARY_LISTED = ["IHHH", "EMPE"]
 EXCLUDED = []
 TICKERS = sorted(t for t in SECTOR if t not in EXCLUDED)
-# 固定 38 檔（今天仍上市、曾為成份股的公司）：存活者偏誤敏感度測試用（MEMBERSHIP_MASK = None，剔除第二上市股和 11 檔下市股）
+# 固定 38 檔（今天仍上市、曾為成份股的公司）：存活者偏誤敏感度測試用（MEMBERSHIP_MASK = None，剔除第二上市股和 10 檔下市股）
 FIXED38 = sorted(t for t in SECTOR if t not in SECONDARY_LISTED and t not in DELISTED_SHEET)
 
 # 幣別（MAS 每日匯率，見 data_loader.to_sgd）
@@ -85,8 +86,8 @@ DS_TO_SGX = {"ASCE": "A17U", "CAPI": "C38U", "CAP1": "9CI", "CITY": "C09", "DBSS
              "SEMB": "U96", "SAIR": "C6L", "SISE": "S68", "CODE": "C52", "EMPE": "EMI", "FRAS": "F99",
              "GLDA": "E5H", "IHHH": "Q0F", "SIAE": "S59", "STAH": "CC3", "YAFH": "YF8",
              "HKLH": "H78", "JMTS": "J36", "DAIR": "D01", "CYCL": "C07", "HPHH": "NS8U",
-             # 11 檔已下市或已離開
-             "COSC": "F83", "SMTC": "S53", "NOLS": "N03", "CMA": "JS8", "OLAM": "O32", "NOBE": "N21",
+             # 10 檔已下市或被收購
+             "SMTC": "S53", "NOLS": "N03", "CMA": "JS8", "OLAM": "O32", "NOBE": "N21",
              "CAPT": "C61U", "JSTG": "J37", "DBSL": "C31", "MGLP": "MC0", "SGPS": "T39"}
 
 # 只保留會用到的欄位
