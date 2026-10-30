@@ -226,7 +226,7 @@ with a larger maximum drawdown (−35% vs −30%). The main setting stays weekly
 `outputs/data/` (intermediate parquet files) is not included; it is rebuilt by the scripts.
 
 ## 8. Limitations and disclosures
-1. Factor screen period: the factor screen uses 2011–2022 IC, which overlaps the training backtest, so training-period Sharpe ratios may be overstated by up to about 0.1 (compared with a Lasso on all 19 factors). Validation and test results are unaffected.
+1. Factor screen period: the factor screen uses IC statistics from 2011–2022, which overlap with the training backtest period. Consequently, training-period performance may be optimistically biased. Although the screened model outperforms the unrestricted 19-factor model in the training period, this difference should not be interpreted as a direct estimate of look-ahead bias. Validation and test results are unaffected.
 2. Short validation and test periods: validation is 3.6 years (Sharpe ratio estimation error about ±0.5); the test period has 20 trading days. The large validation improvement from K = 12 to K = 15 may partly be noise.
 3. Costs and turnover: the S groups turn over about 18% a week; costs explain most of the gap to the STI.
 4. Delisting proceeds are approximated by the last closing price (e.g. CapitaLand's restructuring paid CLI shares plus cash and CLCT units; Jardine Strategic was bought out at USD 33 per share).
