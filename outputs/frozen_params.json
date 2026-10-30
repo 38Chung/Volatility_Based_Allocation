@@ -1,0 +1,48 @@
+{
+  "freeze_date": "2026-09-30",
+  "selection_rule": "每個系列一次只改一項；選項必須同時滿足：驗證期（2023-01-01–2026-07-31）Sharpe 比基準高至少 0.05，而且訓練期 Sharpe 也比基準高；符合者取驗證期 Sharpe 最高，否則保留基準",
+  "chosen": {
+    "E1": "ewma94",
+    "E2": "gamma1",
+    "V1": "target15",
+    "K": "15",
+    "SECTOR_OVER": "0.10"
+  },
+  "notes": [
+    "波動率實驗 E1、E2、V1，加上 K、SECTOR_OVER；LASSO_WINDOW 固定 260"
+  ],
+  "params": {
+    "K": 15,
+    "RANK_BUFFER": 3,
+    "LASSO_MODEL": "lasso260",
+    "LASSO_WINDOW": 260,
+    "LASSO_MIN_WINDOW": 156,
+    "LAMBDA_VALID_WEEKS": 104,
+    "WEIGHTING": "invvol",
+    "GAMMA": 1.0,
+    "SIGMA_METHOD": "ewma94",
+    "SIGMA_FLOOR_PCT": 5,
+    "MAX_WEIGHT": 0.15,
+    "SECTOR_OVER": 0.1,
+    "NO_TRADE_BAND": 0.02,
+    "EXPOSURE": {
+      "method": "garch",
+      "target": 0.15,
+      "lookback": 500
+    },
+    "MAX_EXPOSURE": 1.0,
+    "COST_BPS": 15,
+    "SCREEN_MODE": "static",
+    "SCREEN_T_MIN": 2.0,
+    "SCREEN_FACTORS": [
+      "mom12_1",
+      "rev5",
+      "vol20",
+      "dy",
+      "fep",
+      "rev",
+      "ep_ttm",
+      "overnight20"
+    ]
+  }
+}
